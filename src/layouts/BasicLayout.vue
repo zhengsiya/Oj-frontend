@@ -1,6 +1,6 @@
 <template>
   <div id="BasicLayout">
-    <a-layout style="height: 400px">
+    <a-layout style="min-height: 100vh">
       <a-layout-header class="header">
         <GlobalHeader />
       </a-layout-header>
@@ -20,7 +20,7 @@ import GlobalHeader from '@/components/GlobalHeader.vue'
 <style lang="less" scoped>
 #BasicLayout {
   .header {
-    background-color: #001529;
+    background-color: #fff;
     color: white;
     margin-top: 16px;
   }
@@ -34,7 +34,7 @@ import GlobalHeader from '@/components/GlobalHeader.vue'
     color: white;
     background-color: #001529;
     line-height: 60px;
-    position: absolute;
+    position: sticky;
     bottom: 0px;
     left: 0;
     right: 0;
