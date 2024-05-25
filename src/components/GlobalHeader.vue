@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { routes } from '../router/routes'
 import { useRouter, useRoute } from 'vue-router'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useUserStore } from '@/store/index'
 import checkAccess from '@/access/checkAccess'
+import { storeToRefs } from 'pinia'
 
 const router = useRouter()
 const route = useRoute()
@@ -20,21 +21,17 @@ router.beforeEach((to) => {
 })
 
 const userStore = useUserStore()
-const { user, setUser } = userStore
+// const { setUser } = userStore
+const { user } = storeToRefs(userStore)
 
 // 过滤不显示的路由
-const filterRoutes = routes.filter(
-  // 检查是否具有权限
-  (item) =>
-    checkAccess(user, item.meta?.access as string) &&
-    item.meta?.hideInMenu !== true
-)
-
-setTimeout(() => {
-  setUser({
-    userRole: '',
-    userName: ''
-  })
+const filterRoutes = computed(() => {
+  return routes.filter(
+    // 检查是否具有权限
+    (item) =>
+      checkAccess(user.value, item.meta?.access as string) &&
+      item.meta?.hideInMenu !== true
+  )
 })
 </script>
 
@@ -65,7 +62,7 @@ setTimeout(() => {
       </a-col>
       <a-col :span="3" :offset="3">
         <div class="status">
-          <span>{{ user.userName || '未登录' }}</span>
+          <span>{{ user.userName !== '' ? user.userName : '未登录' }}</span>
         </div>
       </a-col>
     </a-row>

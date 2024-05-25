@@ -6,13 +6,13 @@ export const useUserStore = defineStore('user', () => {
   //state
   const token = '11123'
   const user = ref({
-    userRole: 'Admin',
+    userRole: 'admin',
     userName: '嘻嘻'
   })
 
   //actions
   const setUser = (newUser: User) => {
-    user.value = newUser
+    user.value = { ...user.value, ...newUser }
   }
 
   //getters

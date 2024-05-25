@@ -11,6 +11,7 @@ const router = createRouter({
 
 //路由鉴权 --去哪些页面之前要判断是否需要权限
 router.beforeEach((to, from, next) => {
+  // 在内部访问状态时再调用，不要在外部调用，否则会报错
   const userStore = useUserStore()
   const { user, token } = userStore
   // //是否去需要管理权限的页面

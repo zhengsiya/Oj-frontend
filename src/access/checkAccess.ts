@@ -28,7 +28,7 @@ const checkAccess = (loginUser: User, needAccess: string) => {
     return true
   } else {
     // 其余都是没有权限的情况
-    return true
+    return false
   }
 }
 
