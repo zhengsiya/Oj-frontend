@@ -5,6 +5,7 @@ import { ref, computed } from 'vue'
 import { useUserStore } from '@/store/index'
 import checkAccess from '@/access/checkAccess'
 import { storeToRefs } from 'pinia'
+import { User } from '@/utils/myType'
 
 const router = useRouter()
 const route = useRoute()
@@ -21,7 +22,7 @@ router.beforeEach((to) => {
 })
 
 const userStore = useUserStore()
-// const { setUser } = userStore
+const { getUserInfo } = userStore
 const { user } = storeToRefs(userStore)
 
 // 过滤不显示的路由
@@ -29,16 +30,20 @@ const filterRoutes = computed(() => {
   return routes.filter(
     // 检查是否具有权限
     (item) =>
-      checkAccess(user.value, item.meta?.access as string) &&
+      checkAccess(user.value as User, item.meta?.access as string) &&
       item.meta?.hideInMenu !== true
   )
 })
+
+setTimeout(() => {
+  getUserInfo()
+}, 1000)
 </script>
 
 <template>
   <div id="header">
     <a-row>
-      <a-col :span="18">
+      <a-col :span="20">
         <a-menu
           mode="horizontal"
           :selected-keys="selectKey"
@@ -51,7 +56,7 @@ const filterRoutes = computed(() => {
             disabled
           >
             <div class="titleBar">
-              <img src="@/assets/avater.jpg" alt="logo" />
+              <img src="@/assets/avater.png" alt="logo" />
               <span>嘻嘻OJ</span>
             </div>
           </a-menu-item>
@@ -60,16 +65,16 @@ const filterRoutes = computed(() => {
           }}</a-menu-item>
         </a-menu>
       </a-col>
-      <a-col :span="3" :offset="3">
+      <a-col :span="2" :offset="2">
         <div class="status">
-          <span>{{ user.userName !== '' ? user.userName : '未登录' }}</span>
+          <span>{{ user.userName ? user.userName : '未登录' }}</span>
         </div>
       </a-col>
     </a-row>
   </div>
 </template>
 
-<style>
+<style scoped>
 .titleBar {
   display: flex;
   align-items: center;
@@ -91,11 +96,10 @@ const filterRoutes = computed(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 64px;
+  width: 64px;
+  height: 50px;
   color: #2a629a;
+  margin-top: 20%;
   font-size: 16px;
-  margin-right: 20px;
-  border-radius: 5px;
-  border: dashed 1px #2a629a;
 }
 </style>

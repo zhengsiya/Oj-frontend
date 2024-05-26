@@ -25,14 +25,14 @@ import GlobalHeader from '@/components/GlobalHeader.vue'
     margin-top: 16px;
   }
   .content {
-    background-color: gray;
+    background-color: white;
     padding: 20px;
     margin-bottom: 0;
   }
   .footer {
     text-align: center;
-    color: white;
-    background-color: #001529;
+    color: #f6f5f5;
+    background-color: #1b3c73;
     line-height: 60px;
     position: sticky;
     bottom: 0px;
