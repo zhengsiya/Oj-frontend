@@ -60,9 +60,6 @@
       height: 70vh;
     }
   }
-  .content::before {
-    background: rgba(255, 0, 0, 0.3);
-  }
   .footer {
     position: sticky;
     bottom: 0;

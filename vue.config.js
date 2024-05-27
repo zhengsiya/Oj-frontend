@@ -1,5 +1,6 @@
 const { resolve } = require('path')
 const { defineConfig } = require('@vue/cli-service')
+const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin')
 
 module.exports = defineConfig({
   transpileDependencies: true,
@@ -10,8 +11,10 @@ module.exports = defineConfig({
         __VUE_PROD_DEVTOOLS__: 'false',
         __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: 'false'
       })
+
       return definitions
     })
+    config.plugin('monaco').use(new MonacoWebpackPlugin())
   },
   configureWebpack: {
     resolve: {

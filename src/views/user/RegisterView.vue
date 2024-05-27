@@ -109,4 +109,7 @@ const rules = {
   margin: 50px auto;
   width: 700px;
 }
+.arco-btn-size-medium {
+  width: 120px;
+}
 </style>

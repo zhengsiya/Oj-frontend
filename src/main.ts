@@ -6,5 +6,6 @@ import router from './router'
 import { createPinia } from 'pinia'
 import './index.less'
 import '@/utils/request'
+import 'bytemd/dist/index.css'
 
 createApp(App).use(ArcoVue).use(createPinia()).use(router).mount('#app')
