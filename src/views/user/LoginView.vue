@@ -1,18 +1,9 @@
 <script setup lang="ts">
-import {
-  ref,
-  getCurrentInstance,
-  onMounted,
-  ComponentInternalInstance
-} from 'vue'
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { UserControllerService } from '../../../generated/services/UserControllerService'
 import { useUserStore } from '@/store/index'
-
-const proxy = ref<ComponentInternalInstance | null>(null)
-onMounted(() => {
-  proxy.value = getCurrentInstance()?.proxy ?? null
-})
+import { Message } from '@arco-design/web-vue'
 
 const userStore = useUserStore()
 const { getUserInfo } = userStore
@@ -24,14 +15,11 @@ const form = ref({
 const handleSubmit = async () => {
   const res = await UserControllerService.userLoginUsingPost(form.value)
   if (res.code === 40000) {
-    proxy.value?._.appContext.config.globalProperties.$message.error(
-      res.message
-    )
+    Message.error(res.message)
   } else if (res.code === 0) {
     await getUserInfo()
-    proxy.value?._.appContext.config.globalProperties.$message.success(
-      '登录成功'
-    )
+    Message.success('登录成功')
+
     router.replace('/')
   }
 }

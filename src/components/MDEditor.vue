@@ -2,9 +2,12 @@
 import gfm from '@bytemd/plugin-gfm'
 import highlight from '@bytemd/plugin-highlight'
 import { Editor } from '@bytemd/vue-next'
-import { ref, defineEmits } from 'vue'
+import { ref, defineEmits, defineProps } from 'vue'
 
-const value = ref('')
+const mdvalue = ref('')
+const props = defineProps({
+  value: String
+})
 const plugins = [
   gfm(),
   highlight()
@@ -14,7 +17,7 @@ const plugins = [
 const emit = defineEmits(['onMDChange']) //通过父组件传值，将显示的输入交给父组件处理
 
 const handleChange = (v: string) => {
-  value.value = v
+  mdvalue.value = v
   // console.log(v)
   emit('onMDChange', v)
 }
@@ -22,6 +25,17 @@ const handleChange = (v: string) => {
 
 <template>
   <div id="editor">
-    <Editor :value="value" :plugins="plugins" @change="handleChange" />
+    <Editor
+      :value="props.value"
+      :plugins="plugins"
+      mode="split"
+      @change="handleChange"
+    />
   </div>
 </template>
+
+<style>
+.bytemd-toolbar-icon.bytemd-tippy.bytemd-tippy-right {
+  display: none;
+}
+</style>

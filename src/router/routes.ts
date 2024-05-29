@@ -29,6 +29,11 @@ export const routes: Array<RouteRecordRaw> = [
       hideInMenu: true
     }
   },
+  {
+    path: '/addquestion',
+    name: '创建题目',
+    component: () => import('@/views/questions/AddQuestionView.vue')
+  },
   { path: '/', name: '浏览题目', component: HomeView },
 
   {

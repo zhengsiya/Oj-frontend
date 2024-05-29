@@ -1,3 +1,7 @@
+<script setup>
+import GlobalHeader from '@/components/GlobalHeader.vue'
+</script>
+
 <template>
   <div id="BasicLayout">
     <a-layout style="min-height: 100vh">
@@ -13,9 +17,6 @@
     </a-layout>
   </div>
 </template>
-<script setup>
-import GlobalHeader from '@/components/GlobalHeader.vue'
-</script>
 
 <style lang="less" scoped>
 #BasicLayout {
