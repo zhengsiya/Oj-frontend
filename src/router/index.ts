@@ -18,7 +18,7 @@ router.beforeEach(async (to, from, next) => {
   const { user } = storeToRefs(userStore)
   // 自动登录
   const loginUser = user.value
-  if (!loginUser || loginUser.userRole === 'NOT_LOGIN') {
+  if (!loginUser || loginUser.userRole === Access_Enum.NOT_LOGIN) {
     await userStore.getUserInfo()
   }
 
@@ -27,7 +27,8 @@ router.beforeEach(async (to, from, next) => {
   // 要跳转的页面需要登录
   if (needAccess !== Access_Enum.NOT_LOGIN) {
     if (user.value.userRole === Access_Enum.NOT_LOGIN) {
-      next('/login')
+      // console.log(user.value.userRole, needAccess)
+      next('/user/login')
       return
     }
     // 已登录但是权限不足

@@ -6,6 +6,7 @@ import UserLayout from '@/views/user/UserLayout.vue'
 import { RouteRecordRaw } from 'vue-router'
 
 export const routes: Array<RouteRecordRaw> = [
+  { path: '/', name: '浏览题目', component: HomeView },
   {
     path: '/user',
     name: '用户',
@@ -15,26 +16,33 @@ export const routes: Array<RouteRecordRaw> = [
       {
         path: 'login',
         name: '登录',
-        component: () => import('@/views/user/LoginView.vue'),
-        meta: { hideInMenu: true }
+        component: () => import('@/views/user/LoginView.vue')
+        // meta: { hideInMenu: true }
       },
       {
         path: 'register',
         name: '注册',
-        component: () => import('@/views/user/RegisterView.vue'),
-        meta: { hideInMenu: true }
+        component: () => import('@/views/user/RegisterView.vue')
+        // meta: { hideInMenu: true }
       }
     ],
     meta: {
-      hideInMenu: true
+      // hideInMenu: true
     }
   },
   {
-    path: '/addquestion',
+    path: '/questions/add',
     name: '创建题目',
-    component: () => import('@/views/questions/AddQuestionView.vue')
+    component: () => import('@/views/questions/AddQuestionView.vue'),
+    meta: {
+      // access: 'admin'
+    }
   },
-  { path: '/', name: '浏览题目', component: HomeView },
+  {
+    path: '/questions/manage',
+    name: '题目管理',
+    component: () => import('@/views/questions/ManageQuestionView.vue')
+  },
 
   {
     path: '/about',
@@ -46,8 +54,8 @@ export const routes: Array<RouteRecordRaw> = [
     name: '管理员可见',
     component: AdminPage,
     meta: {
-      requiresAuth: true,
-      access: 'admin'
+      // requiresAuth: true,
+      // access: 'admin'
     }
   },
   {

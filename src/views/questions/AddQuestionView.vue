@@ -1,8 +1,12 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import MDEditor from '@/components/MDEditor.vue'
 import { Message } from '@arco-design/web-vue'
 import { QuestionControllerService } from '../../../generated/services/QuestionControllerService'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
+const questionId: number | null = route?.query?.id as unknown as number
 
 const form = ref({
   answer: '',
@@ -21,6 +25,19 @@ const form = ref({
   tags: [],
   title: ''
 })
+
+onMounted(async () => {
+  if (questionId) {
+    const res = await QuestionControllerService.getQuestionByIdUsingGet(
+      questionId
+    )
+    form.value = res.data
+    form.value.tags = JSON.parse(res.data?.tags)
+    form.value.judgeCase = JSON.parse(res.data?.judgeCase ?? '')
+    form.value.judgeConfig = JSON.parse(res.data?.judgeConfig ?? '')
+  }
+})
+
 const formRef = ref()
 
 // 表单校验
@@ -45,13 +62,11 @@ const addJudgeCase = () => {
     input: '',
     output: ''
   })
-  console.log(form.value)
 }
 
 //删除测试用例
 const delJudgeCase = (index: number) => {
   form.value.judgeCase.splice(index, 1)
-  console.log(form.value)
 }
 
 // 提交题目
@@ -60,11 +75,15 @@ const handleSubmit = () => {
   formRef.value.validate(async (valid: boolean) => {
     if (!valid) {
       //通过验证
-      await QuestionControllerService.addQuestionUsingPost(form.value)
-      Message.success('题目提交成功')
+      if (questionId) {
+        await QuestionControllerService.updateQuestionUsingPost(form.value)
+      } else {
+        await QuestionControllerService.addQuestionUsingPost(form.value)
+      }
+      Message.success(`题目${questionId ? '更新' : '添加'}成功`)
       formRef.value.resetFields() //清空表单内容
     } else {
-      console.log('未通过验证')
+      // 未通过验证
       Message.error('请检查表单是否填写完整')
     }
   })
@@ -73,7 +92,7 @@ const handleSubmit = () => {
 
 <template>
   <div id="add-question">
-    <h2>创建题目</h2>
+    <h2>{{ questionId ? '更新题目' : '创建题目' }}</h2>
     <a-form
       :model="form"
       :rules="rules"

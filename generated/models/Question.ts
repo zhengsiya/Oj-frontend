@@ -13,7 +13,7 @@ export type Question = {
     judgeCase?: string;
     judgeConfig?: string;
     submitNum?: number;
-    tags?: string;
+    tags?: Array<string>;
     thumbNum?: number;
     title?: string;
     updateTime?: string;

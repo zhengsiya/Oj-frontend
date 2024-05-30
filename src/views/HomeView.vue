@@ -8,7 +8,7 @@ const handleMDChange = (v: string) => {
   console.log(v)
 }
 
-const codeValue = ref('helloworld') //仅作为初始化数值传递给MDEditor组件
+const codeValue = ref('') //仅作为初始化数值传递给MDEditor组件
 const handleCodeChange = (v: string) => {
   console.log('来自父组件', v)
 }
