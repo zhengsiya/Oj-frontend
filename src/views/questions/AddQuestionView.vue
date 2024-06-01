@@ -3,9 +3,10 @@ import { ref, onMounted } from 'vue'
 import MDEditor from '@/components/MDEditor.vue'
 import { Message } from '@arco-design/web-vue'
 import { QuestionControllerService } from '../../../generated/services/QuestionControllerService'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 
 const route = useRoute()
+const router = useRouter()
 const questionId: number | null = route?.query?.id as unknown as number
 
 const form = ref({
@@ -81,6 +82,7 @@ const handleSubmit = () => {
         await QuestionControllerService.addQuestionUsingPost(form.value)
       }
       Message.success(`题目${questionId ? '更新' : '添加'}成功`)
+      router.go(-1)
       formRef.value.resetFields() //清空表单内容
     } else {
       // 未通过验证

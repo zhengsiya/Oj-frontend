@@ -21,7 +21,12 @@ const route = useRoute()
 
 <template>
   <div id="app">
-    <template v-if="route.path.startsWith('/user')">
+    <template
+      v-if="
+        route.path.startsWith('/user') ||
+        route.path.startsWith('/questions/solve')
+      "
+    >
       <router-view />
     </template>
     <template v-else>

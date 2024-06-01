@@ -20,7 +20,8 @@ const handleSubmit = async () => {
     await getUserInfo()
     Message.success('登录成功')
 
-    router.replace('/')
+    // router.replace('/')
+    router.go(-1)
   }
 }
 
