@@ -4,6 +4,10 @@ import { QuestionControllerService } from '../../../generated/services/QuestionC
 import dayjs from 'dayjs'
 import { useRouter } from 'vue-router'
 import { QuestionVO } from '../../../generated/models/QuestionVO'
+import checkAccess from '@/access/checkAccess'
+import { storeToRefs } from 'pinia'
+import { useUserStore } from '@/store/index'
+import Access_Enum from '@/access/accessEnum'
 
 interface Record {
   createTime: string
@@ -81,6 +85,7 @@ const pagination = ref({
 
 // 加载数据
 const data = ref([])
+const loading = ref(false)
 const loadData = async (params: Params) => {
   loading.value = true
   //用户获取数据
@@ -116,7 +121,7 @@ type QuestionType = {
 }
 
 // 加载中
-const loading = ref(false)
+
 onMounted(async () => {
   loadData(params.value)
 })
@@ -139,8 +144,14 @@ const handleSearch = () => {
 }
 
 // 做题
+const userStore = useUserStore()
+const { user } = storeToRefs(userStore)
 const doQuestion = (record: QuestionType) => {
-  router.push(`/questions/solve/${record.id}`)
+  if (checkAccess(user.value, Access_Enum.USER)) {
+    router.push(`/questions/solve/${record.id}`)
+  } else {
+    router.push(`/user/login`)
+  }
 }
 </script>
 

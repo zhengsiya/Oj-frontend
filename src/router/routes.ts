@@ -56,6 +56,14 @@ export const routes: Array<RouteRecordRaw> = [
   },
   { path: '/questions', name: '浏览题目', component: ScanQuestions },
   {
+    path: '/questions/submitted',
+    name: '已提交题目',
+    component: () => import('@/views/questions/ViewSubmittedQ.vue'),
+    meta: {
+      access: Access_Enum.USER
+    }
+  },
+  {
     path: '/questions/solve/:id', //传参是题目id，说明做的是哪道题
     name: '在线做题',
     component: DoQuestionView,

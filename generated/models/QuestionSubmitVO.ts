@@ -8,7 +8,7 @@ import type { UserVO } from './UserVO';
 export type QuestionSubmitVO = {
     code?: string;
     createTime?: string;
-    id?: number;
+    id?: bigint;
     judgeInfo?: JudgeInfo;
     language?: string;
     questionId?: number;

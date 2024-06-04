@@ -112,7 +112,7 @@ export class QuestionControllerService {
      * @throws ApiError
      */
     public static getQuestionVoByIdUsingGet(
-        id?: number,
+        id?: bigint,
     ): CancelablePromise<BaseResponse_QuestionVO_> {
         return __request(OpenAPI, {
             method: 'GET',

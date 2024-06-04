@@ -4,12 +4,13 @@ import { QuestionControllerService } from '../../../generated/services/QuestionC
 import { QuestionVO } from '../../../generated/models/QuestionVO'
 import CodeEditor from '@/components/CodeEditor.vue'
 import { Message } from '@arco-design/web-vue'
+import MDViewer from '@/components/MDViewer.vue'
 
 const props = defineProps({
   id: { type: String, required: true }
 })
 
-const id = Number(props.id) //转换为数字类型
+const id = BigInt(props.id) //转换为bigint类型
 const params = ref({
   code: '',
   language: 'java',
@@ -17,6 +18,7 @@ const params = ref({
 }) //代码编辑器中的内容
 
 const questionInfo = ref<QuestionVO | undefined>({})
+
 const getQuestionInfo = async () => {
   const res = await QuestionControllerService.getQuestionVoByIdUsingGet(id)
   questionInfo.value = res.data
@@ -31,8 +33,8 @@ const goBack = () => {
 }
 
 // 获取代码编辑器中的内容
-const getCode = (code: string, language: string) => {
-  params.value = { ...params.value, code, language }
+const getCode = (code: string) => {
+  params.value = { ...params.value, code }
 }
 
 // 提交代码
@@ -55,28 +57,60 @@ const codeSubmit = async () => {
       <icon-left-circle size="25" />
     </a-link>
     <a-row class="grid-demo" :gutter="24">
-      <a-col :span="12">
-        <a-card>
-          <a-tabs default-active-key="1">
-            <a-tab-pane key="1" title="题目描述">
-              <a-scrollbar style="height: 80vh; overflow: auto">
+      <a-col :xs="24" :md="12">
+        <a-tabs default-active-key="1">
+          <a-tab-pane key="1" title="题目描述">
+            <a-card :title="questionInfo?.title">
+              <template #extra>
+                <a-space>
+                  <a-tag
+                    v-for="(item, index) in questionInfo?.tags"
+                    :key="index"
+                    color="blue"
+                  >
+                    {{ item }}
+                  </a-tag>
+                </a-space>
+              </template>
+              <a-scrollbar style="height: 75vh; overflow: auto">
                 <div class="title-description">
-                  <p>{{ questionInfo }}</p>
+                  <a-descriptions layout="inline-horizontal">
+                    <a-descriptions-item label="内存限制">
+                      {{ questionInfo?.judgeConfig?.memoryLimit }}
+                    </a-descriptions-item>
+                    <a-descriptions-item label="时间限制">
+                      {{ questionInfo?.judgeConfig?.timeLimit }}
+                    </a-descriptions-item>
+                    <a-descriptions-item label="堆栈限制">
+                      {{ questionInfo?.judgeConfig?.stackLimit }}
+                    </a-descriptions-item>
+                  </a-descriptions>
+                  <!-- <a-divider /> -->
+                  <MDViewer :value="questionInfo?.content" />
                 </div>
               </a-scrollbar>
-            </a-tab-pane>
-            <a-tab-pane key="2" title="评论" disabled>
-              Content of Tab Panel 2
-            </a-tab-pane>
-            <a-tab-pane key="3" title="题解">
-              <template #title>题解</template>
-              Content of Tab Panel 3
-            </a-tab-pane>
-          </a-tabs>
-        </a-card>
+            </a-card>
+          </a-tab-pane>
+          <a-tab-pane key="2" title="评论" disabled>
+            Content of Tab Panel 2
+          </a-tab-pane>
+          <a-tab-pane key="3" title="题解">
+            <template #title>题解</template>
+            Content of Tab Panel 3
+          </a-tab-pane>
+        </a-tabs>
       </a-col>
-      <a-col :span="12">
-        <CodeEditor @onCodeChange="getCode" />
+      <a-col :xs="24" :md="12">
+        <a-select
+          v-model="params.language"
+          :style="{ width: '120px' }"
+          default-value="java"
+        >
+          <a-option value="java">java</a-option>
+          <a-option value="cpp">cpp</a-option>
+          <a-option value="go">go</a-option>
+        </a-select>
+        <CodeEditor @onCodeChange="getCode" :language="params.language" />
         <a-button
           type="primary"
           :style="{ width: '120px', marginTop: '20px' }"
@@ -96,7 +130,7 @@ const codeSubmit = async () => {
 }
 
 .title-description {
-  height: 80vh;
+  height: 75vh;
   // overflow-y: auto;
 }
 </style>

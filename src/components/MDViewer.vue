@@ -17,7 +17,11 @@ const plugins = [
 
 <template>
   <div id="viewer">
-    <Viewer :value="props.value" :plugins="plugins" />
+    <Viewer
+      :value="props.value"
+      :plugins="plugins"
+      :style="{ color: '#373A40' }"
+    />
   </div>
 </template>
 
