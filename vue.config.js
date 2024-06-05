@@ -3,6 +3,11 @@ const { defineConfig } = require('@vue/cli-service')
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin')
 
 module.exports = defineConfig({
+  devServer: {
+    client: {
+      overlay: false
+    }
+  },
   transpileDependencies: true,
   chainWebpack: (config) => {
     config.plugin('define').tap((definitions) => {

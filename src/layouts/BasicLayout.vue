@@ -29,6 +29,7 @@ import GlobalHeader from '@/components/GlobalHeader.vue'
     background-color: white;
     padding: 20px;
     margin-bottom: 0;
+    overflow: auto;
   }
   .footer {
     text-align: center;

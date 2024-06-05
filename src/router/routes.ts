@@ -71,19 +71,12 @@ export const routes: Array<RouteRecordRaw> = [
     meta: { access: Access_Enum.USER, hideInMenu: true }
   },
   {
-    path: '/about',
-    name: '关于我的',
-    component: () => import('@/views/AboutView.vue')
+    path: '/userProfile',
+    name: '个人信息',
+    component: () => import('@/views/user/ProfileView.vue'),
+    meta: { access: Access_Enum.USER, hideInMenu: true }
   },
-  // {
-  //   path: '/admin',
-  //   name: '管理员可见',
-  //   component: AdminPage,
-  //   meta: {
-  //     requiresAuth: true,
-  //     access: 'admin'
-  //   }
-  // },
+
   {
     path: '/noAuth',
     name: '无权限',

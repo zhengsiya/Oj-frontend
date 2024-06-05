@@ -7,7 +7,7 @@ import Access_Enum from '@/access/accessEnum'
 export const useUserStore = defineStore('user', () => {
   //state
   const user = ref({
-    userName: '未登录',
+    userName: '',
     createTime: '',
     id: -1,
     updateTime: '',

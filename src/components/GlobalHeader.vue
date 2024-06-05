@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { routes } from '../router/routes'
 import { useRouter, useRoute } from 'vue-router'
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useUserStore } from '@/store/index'
 import checkAccess from '@/access/checkAccess'
 import { storeToRefs } from 'pinia'
@@ -35,9 +35,14 @@ const filterRoutes = computed(() => {
   )
 })
 
-setTimeout(() => {
+onMounted(() => {
   getUserInfo()
-}, 1000)
+})
+
+// 设置用户信息
+const setInfo = () => {
+  router.push('/userProfile')
+}
 </script>
 
 <template>
@@ -67,7 +72,23 @@ setTimeout(() => {
       </a-col>
       <a-col :span="2" :offset="2">
         <div class="status">
-          <span>{{ user.userName ? user.userName : '未登录' }}</span>
+          <div>
+            <a-avatar :style="{ backgroundColor: '#3370ff' }" @click="setInfo">
+              <img src="@/assets/avater.jpg" />
+            </a-avatar>
+          </div>
+
+          <a-button
+            :style="{ padding: '0', marginLeft: '15px', border: 'none' }"
+          >
+            {{
+              user.id < 0
+                ? '未登录'
+                : !user.userName
+                ? '未设置用户名'
+                : user.userName
+            }}
+          </a-button>
         </div>
       </a-col>
     </a-row>
@@ -79,27 +100,26 @@ setTimeout(() => {
   display: flex;
   align-items: center;
 }
-.titleBar img {
-  width: 50px;
-  height: 50px;
-  /* display: flex;
-  align-items: center; */
-}
+
 .titleBar span {
   font-size: 16px;
   color: #2a629a;
   margin-left: 10px;
 }
+.titleBar img {
+  width: 50px;
+  height: 450x;
+}
 /* status垂直居中在 a-col */
 .status {
-  background-color: #eef7ff;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 64px;
   height: 50px;
   color: #2a629a;
-  margin-top: 20%;
+  margin-top: 15%;
   font-size: 16px;
+  cursor: pointer;
 }
 </style>
