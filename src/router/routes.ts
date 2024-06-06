@@ -41,20 +41,20 @@ export const routes: Array<RouteRecordRaw> = [
     name: '编辑题目',
     component: () => import('@/views/questions/AddQuestionView.vue'),
     meta: {
-      access: 'admin',
-      hideInMenu: true
+      access: Access_Enum.ADMIN
     }
   },
+
+  { path: '/questions', name: '浏览题目', component: ScanQuestions },
   {
     path: '/questions/manage',
     name: '题目管理',
     component: () => import('@/views/questions/ManageQuestionView.vue'),
     meta: {
-      access: 'admin'
+      access: Access_Enum.ADMIN
       // hideInMenu: true
     }
   },
-  { path: '/questions', name: '浏览题目', component: ScanQuestions },
   {
     path: '/questions/submitted',
     name: '已提交题目',
@@ -63,6 +63,7 @@ export const routes: Array<RouteRecordRaw> = [
       access: Access_Enum.USER
     }
   },
+
   {
     path: '/questions/solve/:id', //传参是题目id，说明做的是哪道题
     name: '在线做题',

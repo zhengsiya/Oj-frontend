@@ -201,7 +201,7 @@ const doQuestion = (record: QuestionType) => {
 
 <style scoped>
 #manage-question {
-  max-width: 1280px;
-  margin: 0 auto;
+  min-width: 1280px;
+  margin: 0 50px;
 }
 </style>

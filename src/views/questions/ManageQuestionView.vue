@@ -39,7 +39,7 @@ const columns = [
     width: 150
   },
   {
-    title: '答案',
+    title: '题解',
     dataIndex: 'answer'
   },
   {
@@ -194,4 +194,9 @@ const pageChange = (page: number) => {
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+#manage-question {
+  min-width: 1280px;
+  margin: 0 50px;
+}
+</style>

@@ -8,9 +8,9 @@
         </div>
       </a-layout-header>
       <a-layout-content class="content">
-        <div class="backregion">
+        <!-- <div class="backregion">
           <img src="" alt="loginbg" />
-        </div>
+        </div> -->
         <router-view />
       </a-layout-content>
       <a-layout-footer class="footer">
@@ -53,12 +53,11 @@
     background-size: cover;
     padding: 24px;
     min-height: 280px;
-    .backregion,
-    .backregion > img {
-      background-color: black;
-      width: 100vh;
-      height: 70vh;
-    }
+    // .backregion,
+    // .backregion > img {
+    //   width: 100vh;
+    //   height: 70vh;
+    // }
   }
   .footer {
     position: sticky;

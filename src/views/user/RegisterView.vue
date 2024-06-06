@@ -52,64 +52,87 @@ const rules = {
 <template>
   <div id="register">
     <div class="operateRegion">
-      <a-radio-group
-        type="button"
-        :style="{ margin: '20px 0 20px 100px' }"
-        default-value="register"
-        @change="handleChangeAction"
-      >
-        <a-radio value="login">登录</a-radio>
-        <a-radio value="register">注册</a-radio>
-      </a-radio-group>
-      <a-form
-        :model="form"
-        :rules="rules"
-        :style="{ width: '500px', margin: '0 auto' }"
-        @submit="handleSubmit"
-      >
-        <a-form-item field="userAccount" label="账号" validate-trigger="blur">
-          <a-input
-            v-model="form.userAccount"
-            placeholder="请输入账号"
-            :style="{ fontsize: '20px' }"
-            size="large"
-          />
-        </a-form-item>
-        <a-form-item field="userPassword" label="密码" validate-trigger="blur">
-          <a-input-password
-            v-model="form.userPassword"
-            placeholder="请输入密码"
-            :style="{ fontsize: '20px' }"
-            size="large"
-          />
-        </a-form-item>
-        <a-form-item
-          field="checkPassword"
-          label="确认密码"
-          validate-trigger="blur"
+      <div id="form">
+        <a-radio-group
+          type="button"
+          :style="{ margin: '40px 0 30px 0px' }"
+          default-value="register"
+          @change="handleChangeAction"
         >
-          <a-input-password
-            v-model="form.checkPassword"
-            placeholder="请再次输入密码"
-            :style="{ fontsize: '20px' }"
-            size="large"
-          />
-        </a-form-item>
+          <a-radio value="login">登录</a-radio>
+          <a-radio value="register">注册</a-radio>
+        </a-radio-group>
+        <a-form :model="form" :rules="rules" @submit="handleSubmit">
+          <a-form-item field="userAccount" label="账号" validate-trigger="blur">
+            <a-input
+              v-model="form.userAccount"
+              placeholder="请输入账号"
+              :style="{ fontsize: '20px', width: '300px' }"
+              size="large"
+            />
+          </a-form-item>
+          <a-form-item
+            field="userPassword"
+            label="密码"
+            validate-trigger="blur"
+          >
+            <a-input-password
+              v-model="form.userPassword"
+              placeholder="请输入密码"
+              :style="{ fontsize: '20px', width: '300px' }"
+              size="large"
+            />
+          </a-form-item>
+          <a-form-item
+            field="checkPassword"
+            label="确认密码"
+            validate-trigger="blur"
+          >
+            <a-input-password
+              v-model="form.checkPassword"
+              placeholder="请再次输入密码"
+              :style="{ fontsize: '20px', width: '300px' }"
+              size="large"
+            />
+          </a-form-item>
 
-        <a-form-item>
-          <a-button html-type="submit" type="primary">注册</a-button>
-        </a-form-item>
-      </a-form>
+          <a-form-item>
+            <a-button html-type="submit" type="primary">注册</a-button>
+          </a-form-item>
+        </a-form>
+      </div>
     </div>
   </div>
 </template>
 
-<style lang="less" scoped>
+<style lang="less">
+#register {
+  width: 100%;
+}
 .operateRegion {
-  margin: 50px auto;
-  width: 700px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10vh auto;
+  width: 60vh;
+  height: 75%;
+  background-image: linear-gradient(
+    135deg,
+    #fde49e 0%,
+    #a7e6ff 20%,
+    #fefefe 35%
+  );
+  border-radius: 30px;
+}
+#form {
+  width: 380px;
+  height: 100%;
 }
 .arco-btn-size-medium {
   width: 120px;
+}
+.arco-form-item-label-col > .arco-form-item-label {
+  // 关闭white-space
+  white-space: nowrap;
 }
 </style>

@@ -114,9 +114,9 @@ const pageChange = (current: number) => {
     </a-table>
   </div>
 </template>
-<!--
-      
-     
-      
-      
-      -->
+<style scoped>
+#view-submitted {
+  min-width: 1280px;
+  margin: 0 40px;
+}
+</style>

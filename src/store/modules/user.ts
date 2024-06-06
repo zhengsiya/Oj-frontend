@@ -21,6 +21,18 @@ export const useUserStore = defineStore('user', () => {
     user.value = newUser
   }
 
+  const clearUser = () => {
+    user.value = {
+      userName: '',
+      createTime: '',
+      id: -1,
+      updateTime: '',
+      userAvatar: '',
+      userProfile: '',
+      userRole: Access_Enum.NOT_LOGIN
+    }
+  }
+
   // 从远程获取登录用户信息
   const getUserInfo = async () => {
     const res = await UserControllerService.getLoginUserUsingGet()
@@ -39,6 +51,7 @@ export const useUserStore = defineStore('user', () => {
   return {
     user,
     setUser,
+    clearUser,
     getUserInfo
   }
 })

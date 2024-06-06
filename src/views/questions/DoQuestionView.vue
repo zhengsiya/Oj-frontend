@@ -228,8 +228,8 @@ const reloadRecords = (key: string) => {
 
 <style scoped lang="less">
 #do-question {
-  max-width: 1400px;
-  margin: 0 auto;
+  min-width: 1280px;
+  margin: 0 50px;
 }
 
 .title-description {

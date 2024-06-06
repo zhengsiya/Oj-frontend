@@ -135,7 +135,7 @@ const handleSubmit = () => {
       </a-form-item>
       <a-form-item
         field="answer"
-        label="答案"
+        label="题解"
         validate-triiger="blur"
         prop="answer"
       >
@@ -243,11 +243,15 @@ const handleSubmit = () => {
           @click="handleSubmit"
           :style="{ width: '300px' }"
         >
-          提交题目
+          {{ (questionId ? '更新' : '创建') + '题目' }}
         </a-button>
       </a-form-item>
     </a-form>
   </div>
 </template>
 
-<style></style>
+<style>
+#add-question {
+  margin: 0 10vw;
+}
+</style>

@@ -43,6 +43,11 @@ onMounted(() => {
 const setInfo = () => {
   router.push('/userProfile')
 }
+
+// 退出登录
+const logout = () => {
+  router.push('/user/login')
+}
 </script>
 
 <template>
@@ -73,22 +78,27 @@ const setInfo = () => {
       <a-col :span="2" :offset="2">
         <div class="status">
           <div>
-            <a-avatar :style="{ backgroundColor: '#3370ff' }" @click="setInfo">
+            <a-avatar :style="{ backgroundColor: '#3370ff' }">
               <img src="@/assets/avater.jpg" />
             </a-avatar>
           </div>
-
-          <a-button
-            :style="{ padding: '0', marginLeft: '15px', border: 'none' }"
-          >
-            {{
-              user.id < 0
-                ? '未登录'
-                : !user.userName
-                ? '未设置用户名'
-                : user.userName
-            }}
-          </a-button>
+          <a-dropdown>
+            <a-button
+              :style="{ padding: '0', marginLeft: '15px', border: 'none' }"
+            >
+              {{
+                user.id < 0
+                  ? '未登录'
+                  : !user.userName
+                  ? '未设置用户名'
+                  : user.userName
+              }}
+            </a-button>
+            <template #content>
+              <a-doption @click="setInfo"> 修改信息 </a-doption>
+              <a-doption @click="logout">退出登录</a-doption>
+            </template>
+          </a-dropdown>
         </div>
       </a-col>
     </a-row>
